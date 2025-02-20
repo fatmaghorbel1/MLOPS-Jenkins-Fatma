@@ -1,0 +1,15 @@
+artifact_uri: file:///home/fatma/ml_project/mlruns/104387838501893021/bec9d3d44d104a01bf7f26615e105a10/artifacts
+end_time: 1740092862890
+entry_point_name: ''
+experiment_id: '104387838501893021'
+lifecycle_stage: active
+run_id: bec9d3d44d104a01bf7f26615e105a10
+run_name: burly-seal-27
+run_uuid: bec9d3d44d104a01bf7f26615e105a10
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740092857924
+status: 3
+tags: []
+user_id: fatma

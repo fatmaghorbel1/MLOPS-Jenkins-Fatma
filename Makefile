@@ -1,25 +1,16 @@
-# Makefile for automating ML tasks
-
+# GNU nano 7.2    Makefile
 # Variables
 PYTHON = python3
 PIP = pip
 VENV = venv
-lint:
-    @echo "Running code linting..."
-    pylint model_pipeline.py main.py
-
-format:
-    @echo "Formatting code..."
-    black model_pipeline.py main.py
-# Targets
 
 # Install dependencies
-install: 
+install:
 	@echo "Installing dependencies..."
 	$(PIP) install -r requirements.txt
 
 # Train the model
-train: 
+train:
 	@echo "Training the model..."
 	$(PYTHON) main.py --train --save
 
