@@ -1,0 +1,15 @@
+artifact_uri: file:///home/fatma/ml_project/mlruns/104387838501893021/a4a2ccf723394a1fb07c12db36dbf18b/artifacts
+end_time: 1739923244056
+entry_point_name: ''
+experiment_id: '104387838501893021'
+lifecycle_stage: active
+run_id: a4a2ccf723394a1fb07c12db36dbf18b
+run_name: omniscient-pig-247
+run_uuid: a4a2ccf723394a1fb07c12db36dbf18b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739923241314
+status: 4
+tags: []
+user_id: fatma

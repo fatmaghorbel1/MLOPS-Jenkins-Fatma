@@ -1,0 +1,15 @@
+artifact_uri: file:///home/fatma/ml_project/mlruns/104387838501893021/78831bbe1d3e446cab20701c4e1efbd6/artifacts
+end_time: 1739923120065
+entry_point_name: ''
+experiment_id: '104387838501893021'
+lifecycle_stage: active
+run_id: 78831bbe1d3e446cab20701c4e1efbd6
+run_name: resilient-seal-291
+run_uuid: 78831bbe1d3e446cab20701c4e1efbd6
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739923120054
+status: 3
+tags: []
+user_id: fatma

@@ -1,0 +1,15 @@
+artifact_uri: file:///home/fatma/ml_project/mlruns/104387838501893021/d3cad71c252142b29ebca511b820fcbf/artifacts
+end_time: 1739923171588
+entry_point_name: ''
+experiment_id: '104387838501893021'
+lifecycle_stage: active
+run_id: d3cad71c252142b29ebca511b820fcbf
+run_name: silent-sow-153
+run_uuid: d3cad71c252142b29ebca511b820fcbf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739923163656
+status: 3
+tags: []
+user_id: fatma

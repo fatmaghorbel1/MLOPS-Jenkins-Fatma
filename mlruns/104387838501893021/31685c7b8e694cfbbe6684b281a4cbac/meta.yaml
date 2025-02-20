@@ -1,0 +1,15 @@
+artifact_uri: file:///home/fatma/ml_project/mlruns/104387838501893021/31685c7b8e694cfbbe6684b281a4cbac/artifacts
+end_time: 1739925211040
+entry_point_name: ''
+experiment_id: '104387838501893021'
+lifecycle_stage: active
+run_id: 31685c7b8e694cfbbe6684b281a4cbac
+run_name: invincible-tern-514
+run_uuid: 31685c7b8e694cfbbe6684b281a4cbac
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739925204328
+status: 3
+tags: []
+user_id: fatma

@@ -1,0 +1,15 @@
+artifact_uri: file:///home/fatma/ml_project/mlruns/104387838501893021/ea1b504af0064944b5d05c3fcb73e724/artifacts
+end_time: 1739954784824
+entry_point_name: ''
+experiment_id: '104387838501893021'
+lifecycle_stage: active
+run_id: ea1b504af0064944b5d05c3fcb73e724
+run_name: salty-shark-792
+run_uuid: ea1b504af0064944b5d05c3fcb73e724
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739954779779
+status: 3
+tags: []
+user_id: fatma

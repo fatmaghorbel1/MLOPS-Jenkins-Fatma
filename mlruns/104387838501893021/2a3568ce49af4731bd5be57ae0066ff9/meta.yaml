@@ -1,0 +1,15 @@
+artifact_uri: file:///home/fatma/ml_project/mlruns/104387838501893021/2a3568ce49af4731bd5be57ae0066ff9/artifacts
+end_time: 1739954770968
+entry_point_name: ''
+experiment_id: '104387838501893021'
+lifecycle_stage: active
+run_id: 2a3568ce49af4731bd5be57ae0066ff9
+run_name: monumental-shrew-208
+run_uuid: 2a3568ce49af4731bd5be57ae0066ff9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739954759870
+status: 3
+tags: []
+user_id: fatma
