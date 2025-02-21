@@ -1,0 +1,15 @@
+artifact_uri: file:///home/fatma/ml_project/mlflow_artifacts/612502118443814026/0d0c7394775e4220933d1f0ea3506148/artifacts
+end_time: 1740145572626
+entry_point_name: ''
+experiment_id: '612502118443814026'
+lifecycle_stage: active
+run_id: 0d0c7394775e4220933d1f0ea3506148
+run_name: ambitious-crow-536
+run_uuid: 0d0c7394775e4220933d1f0ea3506148
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740145572623
+status: 3
+tags: []
+user_id: fatma
