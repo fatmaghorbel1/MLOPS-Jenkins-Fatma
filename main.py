@@ -6,14 +6,8 @@ from pathlib import Path
 from model_pipeline import prepare_data, train_model, evaluate_model, save_model, load_model
 
 # Set the artifact path to a directory within the Jenkins workspace
-mlflow.set_tracking_uri("file:///var/lib/jenkins/workspace/ML_Pipeline/mlruns")
+mlflow.set_tracking_uri("file:///tmp/mlflow_artifacts")
 mlflow.set_experiment("ML_Pipeline_Experiment")
-
-# Log the model
-mlflow.sklearn.log_model(model, "model")
-
-# Call this function at the beginning of your main() function
-artifact_location = setup_mlflow_artifacts()
 def main():
     parser = argparse.ArgumentParser(description="ML Pipeline Execution")
     parser.add_argument("--train", action="store_true", help="Train the model")
