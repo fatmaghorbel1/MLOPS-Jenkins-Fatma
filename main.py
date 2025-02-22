@@ -4,20 +4,13 @@ import mlflow.sklearn
 import os
 from pathlib import Path
 from model_pipeline import prepare_data, train_model, evaluate_model, save_model, load_model
-# Add this at the beginning of your main.py file, before any MLflow operations
-def setup_mlflow_artifacts():
-    """Configure MLflow to use a directory inside Jenkins workspace for artifacts"""
-    # Get Jenkins workspace path (or use current directory if not in Jenkins)
-    workspace = os.environ.get('WORKSPACE', os.path.dirname(os.path.abspath(__file__)))
-    
-    # Create artifact directory within workspace
-    artifact_dir = os.path.join(workspace, "mlflow_artifacts")
-    Path(artifact_dir).mkdir(parents=True, exist_ok=True)
-    
-    # Set MLflow tracking URI to use this location
-    mlflow.set_tracking_uri(f"file:{artifact_dir}")
-    
-    return artifact_dir
+
+# Set the artifact path to a directory within the Jenkins workspace
+mlflow.set_tracking_uri("file:///var/lib/jenkins/workspace/ML_Pipeline/mlruns")
+mlflow.set_experiment("ML_Pipeline_Experiment")
+
+# Log the model
+mlflow.sklearn.log_model(model, "model")
 
 # Call this function at the beginning of your main() function
 artifact_location = setup_mlflow_artifacts()
