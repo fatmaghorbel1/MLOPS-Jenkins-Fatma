@@ -1,4 +1,3 @@
-# GNU nano 7.2    Makefile
 # Variables
 PYTHON = python3
 PIP = pip
@@ -39,8 +38,10 @@ clean:
 	@echo "Cleaning up Python bytecode files..."
 	find . -name "*.pyc" -exec rm -f {} \;
 
+# Start MLflow UI
 mlflow-ui:
-    @echo "Starting MLflow UI..."
-    mlflow ui --host 0.0.0.0 --port 5000
+	@echo "Starting MLflow UI..."
+	mlflow ui --host 0.0.0.0 --port 5000
+
 # Default target to install, train, and evaluate
 all: install train evaluate
