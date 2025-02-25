@@ -69,6 +69,15 @@ def main():
                 mlflow.log_metric("accuracy", accuracy)
                 mlflow.log_metric("precision", precision)
                 mlflow.log_metric("recall", recall)
+                # Log model
+                mlflow.sklearn.log_model(model, "model")
+
+                # Log artifacts (e.g., feature importance plot)
+                import matplotlib.pyplot as plt
+                importances = model.feature_importances_
+                plt.barh(X.columns, importances)
+                plt.savefig("feature_importance.png")
+                mlflow.log_artifact("feature_importance.png")
                 print(f"Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}")
             else:
                 print(f"Feature shape mismatch: Expected 19 features, but got {X_test.shape[1]} features.")
