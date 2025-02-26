@@ -2,13 +2,46 @@ import argparse
 import mlflow
 import mlflow.sklearn
 import os
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_curve, auc, confusion_matrix
 from pathlib import Path
 from model_pipeline import prepare_data, train_model, evaluate_model, save_model, load_model
 
 artifact_path = os.path.expanduser("~/mlflow_artifacts")
 os.makedirs(artifact_path, exist_ok=True)  # Ensure the directory exists
-mlflow.set_tracking_uri(f"file://{artifact_path}")
+mlflow.set_tracking_uri("file:///home/fatma/mlflow_artifacts")
 mlflow.set_experiment("Churn_Prediction")
+def plot_roc_curve(y_true, y_pred_proba, file_name="roc_curve.png"):
+    """
+    Plot ROC curve and save it as an image.
+    """
+    fpr, tpr, _ = roc_curve(y_true, y_pred_proba)
+    roc_auc = auc(fpr, tpr)
+
+    plt.figure()
+    plt.plot(fpr, tpr, color="darkorange", lw=2, label=f"ROC curve (area = {roc_auc:.2f})")
+    plt.plot([0, 1], [0, 1], color="navy", lw=2, linestyle="--")
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title("Receiver Operating Characteristic (ROC) Curve")
+    plt.legend(loc="lower right")
+    plt.savefig(file_name)
+    plt.close()
+
+def plot_confusion_matrix(y_true, y_pred, file_name="confusion_matrix.png"):
+    """
+    Plot confusion matrix and save it as an image.
+    """
+    cm = confusion_matrix(y_true, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["Not Churn", "Churn"], yticklabels=["Not Churn", "Churn"])
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    plt.title("Confusion Matrix")
+    plt.savefig(file_name)
+    plt.close()
+
 
 def main():
     parser = argparse.ArgumentParser(description="ML Pipeline Execution")
@@ -68,6 +101,20 @@ def main():
                 mlflow.log_metric("accuracy", accuracy)
                 mlflow.log_metric("precision", precision)
                 mlflow.log_metric("recall", recall)
+
+		# Generate predictions and probabilities for ROC curve
+                y_pred = model.predict(X_test)
+                y_pred_proba = model.predict_proba(X_test)[:, 1]  
+
+ 		# Plot and log ROC curve
+                plot_roc_curve(y_test, y_pred_proba, "roc_curve.png")
+                mlflow.log_artifact("roc_curve.png")
+                print("ROC curve logged as artifact")
+
+                # Plot and log confusion matrix
+                plot_confusion_matrix(y_test, y_pred, "confusion_matrix.png")
+                mlflow.log_artifact("confusion_matrix.png")
+                print("Confusion matrix logged as artifact")
 
                 # Log artifacts (e.g., feature importance plot)
                 import matplotlib.pyplot as plt

@@ -12,3 +12,4 @@ uvicorn
 mlflow
 xgboost
 bandit
+plyer
