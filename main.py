@@ -8,10 +8,14 @@ from sklearn.metrics import roc_curve, auc, confusion_matrix
 from pathlib import Path
 from model_pipeline import prepare_data, train_model, evaluate_model, save_model, load_model
 
-artifact_path = os.path.expanduser("~/mlflow_artifacts")
-os.makedirs(artifact_path, exist_ok=True)  # Ensure the directory exists
-mlflow.set_tracking_uri("file:///home/fatma/mlflow_artifacts")
-mlflow.set_experiment("Churn_Prediction")
+# Use environment variables for MLflow configuration with sensible defaults
+TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", "file://./mlruns")
+ARTIFACT_PATH = os.getenv("MLFLOW_ARTIFACT_ROOT", "./artifacts")
+
+# Ensure the artifact directory exists
+os.makedirs(ARTIFACT_PATH, exist_ok=True)
+mlflow.set_tracking_uri(TRACKING_URI)
+
 def plot_roc_curve(y_true, y_pred_proba, file_name="roc_curve.png"):
     """
     Plot ROC curve and save it as an image.
@@ -42,7 +46,6 @@ def plot_confusion_matrix(y_true, y_pred, file_name="confusion_matrix.png"):
     plt.savefig(file_name)
     plt.close()
 
-
 def main():
     parser = argparse.ArgumentParser(description="ML Pipeline Execution")
     parser.add_argument("--train", action="store_true", help="Train the model")
@@ -59,13 +62,13 @@ def main():
     X_train, X_test, y_train, y_test, label_encoders = prepare_data(train_file, test_file)
 
     # Debugging: Print shapes of training and test data
-    print(f"Training data shape: {X_train.shape}")  # Ensure this prints (n_samples, 19)
-    print(f"Test data shape: {X_test.shape}")  # Ensure this prints (n_samples, 19)
-
-    # Start an MLflow experiment
-    mlflow.set_experiment("Churn_Prediction")
+    print(f"Training data shape: {X_train.shape}")
+    print(f"Test data shape: {X_test.shape}")
 
     with mlflow.start_run():
+        # Set the experiment (only needed here, not globally)
+        mlflow.set_experiment("Churn_Prediction")
+
         # Log parameters
         mlflow.log_param("n_estimators", 100)
         mlflow.log_param("max_depth", 6)
@@ -102,11 +105,11 @@ def main():
                 mlflow.log_metric("precision", precision)
                 mlflow.log_metric("recall", recall)
 
-		# Generate predictions and probabilities for ROC curve
+                # Generate predictions and probabilities for ROC curve
                 y_pred = model.predict(X_test)
-                y_pred_proba = model.predict_proba(X_test)[:, 1]  
+                y_pred_proba = model.predict_proba(X_test)[:, 1]
 
- 		# Plot and log ROC curve
+                # Plot and log ROC curve
                 plot_roc_curve(y_test, y_pred_proba, "roc_curve.png")
                 mlflow.log_artifact("roc_curve.png")
                 print("ROC curve logged as artifact")
@@ -116,8 +119,7 @@ def main():
                 mlflow.log_artifact("confusion_matrix.png")
                 print("Confusion matrix logged as artifact")
 
-                # Log artifacts (e.g., feature importance plot)
-                import matplotlib.pyplot as plt
+                # Log feature importance plot
                 importances = model.feature_importances_
                 plt.barh(X_test.columns, importances)
                 plt.savefig("feature_importance.png")
