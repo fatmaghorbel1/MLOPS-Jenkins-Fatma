@@ -3,15 +3,13 @@ import mlflow
 import mlflow.sklearn
 import os
 from pathlib import Path
-import matplotlib.pyplot as plt
 from model_pipeline import prepare_data, train_model, evaluate_model, save_model, load_model
 
-
-# Set the artifact path to a directory within your workspace or home directory
 artifact_path = os.path.expanduser("~/mlflow_artifacts")
 os.makedirs(artifact_path, exist_ok=True)  # Ensure the directory exists
 mlflow.set_tracking_uri(f"file://{artifact_path}")
-mlflow.set_experiment("ML_Pipeline_Experiment")
+mlflow.set_experiment("Churn_Prediction")
+
 def main():
     parser = argparse.ArgumentParser(description="ML Pipeline Execution")
     parser.add_argument("--train", action="store_true", help="Train the model")
@@ -23,6 +21,7 @@ def main():
     # File paths for training and testing data
     train_file = "churn-bigml-80.csv"
     test_file = "churn-bigml-20.csv"
+
     # Prepare the data
     X_train, X_test, y_train, y_test, label_encoders = prepare_data(train_file, test_file)
 
@@ -69,15 +68,15 @@ def main():
                 mlflow.log_metric("accuracy", accuracy)
                 mlflow.log_metric("precision", precision)
                 mlflow.log_metric("recall", recall)
-                # Log model
-                mlflow.sklearn.log_model(model, "model")
 
                 # Log artifacts (e.g., feature importance plot)
                 import matplotlib.pyplot as plt
                 importances = model.feature_importances_
                 plt.barh(X_test.columns, importances)
                 plt.savefig("feature_importance.png")
+                print("Plot saved as feature_importance.png")
                 mlflow.log_artifact("feature_importance.png")
+                print("Plot logged as artifact")
                 print(f"Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}")
             else:
                 print(f"Feature shape mismatch: Expected 19 features, but got {X_test.shape[1]} features.")
