@@ -13,3 +13,4 @@ mlflow
 xgboost
 bandit
 plyer
+seaborn
