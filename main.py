@@ -3,6 +3,7 @@ import mlflow
 import mlflow.sklearn
 import os
 from pathlib import Path
+import matplotlib.pyplot as plt
 from model_pipeline import prepare_data, train_model, evaluate_model, save_model, load_model
 
 
@@ -22,7 +23,6 @@ def main():
     # File paths for training and testing data
     train_file = "churn-bigml-80.csv"
     test_file = "churn-bigml-20.csv"
-
     # Prepare the data
     X_train, X_test, y_train, y_test, label_encoders = prepare_data(train_file, test_file)
 
@@ -75,7 +75,7 @@ def main():
                 # Log artifacts (e.g., feature importance plot)
                 import matplotlib.pyplot as plt
                 importances = model.feature_importances_
-                plt.barh(X.columns, importances)
+                plt.barh(X_test.columns, importances)
                 plt.savefig("feature_importance.png")
                 mlflow.log_artifact("feature_importance.png")
                 print(f"Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}")
